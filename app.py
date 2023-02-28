@@ -13,10 +13,10 @@ def RoomData():
 
     dummy_rta_all_rooms = []  # |USED AS A PLACEHOLDER| Dummy array for storing all registered rooms within RTA
     dummy_rta_leacture_rooms = []  # |USED AS A PLACEHOLDER| Dummy array for storing all the rooms where leactures take place
-    dummy_active_rooms_list = []  # |USED AS A PLACEHOLDER| An array for keeping separate active and not active rooms
+    dummy_active_rooms_list = []  # |USED AS A PLACEHOLDER| An array for keeping both active and not active rooms data
 
-    rta_active_output = []  # List w/ active rooms that ultimately get displayed
-    rta_not_active_output = []  # List w/ NOT active rooms that also ultimately get displayed
+    rta_active_output = []  # List w/ active rooms that ultimately gets displayed
+    rta_not_active_output = []  # List w/ NOT active rooms that also at the end gets displayed
 
     now = datetime.now()  # Setting up current-time
     current_time = now.strftime("%H:%M")
@@ -24,7 +24,7 @@ def RoomData():
     rta_rooms_info_url = 'https://vis.rta.lv/service/busyrooms/rooms'
     active_rooms_url = 'https://vis.rta.lv/service/busyrooms/lectures'
 
-    rta_rooms_response = requests.get(rta_rooms_info_url)  # W/ GET method we retrieve all the data from links
+    rta_rooms_response = requests.get(rta_rooms_info_url)  # With GET method we retrieve all the data from links
     rta_active_rooms_response = requests.get(active_rooms_url)
 
     if rta_rooms_response.status_code == 200 and rta_active_rooms_response.status_code == 200:
@@ -33,8 +33,7 @@ def RoomData():
         rooms_info = rta_rooms_response.content.decode()  # Returns the original string from encoded string
         active_rooms = rta_active_rooms_response.content.decode()
 
-        response_rooms_info = json.loads(
-            rooms_info)  # Used to parse a valid JSON string and convert it into a Python Dic
+        response_rooms_info = json.loads(rooms_info)  # Used to parse valid JSON string and convert it into a Python Dictionary
         response_active_rooms = json.loads(active_rooms)
 
         for room_active in response_active_rooms["Saraksts"]:
@@ -51,11 +50,10 @@ def RoomData():
                     "status": "currently isn't active "
                 })
 
-        for room in response_rooms_info["Saraksts"]:  # All registered rooms within RTA are in RTA_ALL_ROOMS array
+        for room in response_rooms_info["Saraksts"]:
             dummy_rta_all_rooms.append(room['telpa'])
 
-        for room_active in response_active_rooms[
-            "Saraksts"]:  # All rooms where leactures are happening are in RTA_LEACTURES_ROOMS array
+        for room_active in response_active_rooms["Saraksts"]:
             dummy_rta_leacture_rooms.append(room_active['telpa'])
 
         for roomd_id in dummy_rta_all_rooms:
@@ -92,12 +90,12 @@ def RoomData():
 
         print("Connecting to broker", broker)
 
-        client.connect(broker)  # Establish connection
-        client.loop_start()  # Start looping so that call back functions start to proccess
-        data_out = json.dumps(rta_active_output + rta_not_active_output)  # to convert python dictionary or list (encoding object to JSON)
-        client.publish("RTA/rooms", data_out)  # Publishing the data/messages
+        client.connect(broker)  # Establishing connection
+        client.loop_start()  # Beginning of the looping so that call back functions start to proccess
+        data_out = json.dumps(rta_active_output + rta_not_active_output)  # Encoding object to JSON format
+        client.publish("RTA/rooms", data_out)  # Publishing data/messages
         time.sleep(4)
-        client.loop_stop()  # End the loop
+        client.loop_stop()  # End of the loop
         client.disconnect()
 
     else:
