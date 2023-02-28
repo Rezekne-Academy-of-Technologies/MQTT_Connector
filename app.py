@@ -67,7 +67,7 @@ def RoomData():
 
         # return rta_active_output + rta_not_active_output
 
-        # Connection to a MQTT broker
+        # Connection to MQTT broker
 
         def on_log(client, userdata, buf):  # Call back function
             print('log: ' + buf)
