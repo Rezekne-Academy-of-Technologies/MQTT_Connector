@@ -12,7 +12,7 @@ app = Flask(__name__)
 def RoomData():
 
     dummy_rta_all_rooms = []  # |USED AS A PLACEHOLDER| Dummy array for storing all registered rooms within RTA
-    dummy_rta_leacture_rooms = []  # |USED AS A PLACEHOLDER| Dummy array for storing all the rooms where leactures take place
+    dummy_rta_lecture_rooms = []  # |USED AS A PLACEHOLDER| Dummy array for storing all the rooms where leactures take place
     dummy_active_rooms_list = []  # |USED AS A PLACEHOLDER| An array for keeping both active and not active rooms data
 
     rta_active_output = []  # List w/ active rooms that ultimately gets displayed
@@ -37,32 +37,41 @@ def RoomData():
         response_active_rooms = json.loads(active_rooms)
 
         for room_active in response_active_rooms["Saraksts"]:
+            building = room_active['telpa'].split('-')
             if room_active['sakuma_laiks'] <= current_time and room_active['beigu_laiks'] >= current_time:
                 rta_active_output.append({
                     "room_name": room_active['telpa'],
                     "date": room_active['datums_p'],
-                    "status": "active"
+                    "status": "active",
+                    "building": building[1]
                 })
             else:
                 rta_active_output.append({
                     "room_name": room_active['telpa'],
                     "date": room_active['datums_p'],
-                    "status": "currently isn't active "
+                    "status": "currently isn't active ",
+                    "building": building[1]
+
                 })
 
         for room in response_rooms_info["Saraksts"]:
-            dummy_rta_all_rooms.append(room['telpa'])
+            if (room['telpa'].__contains__('test') or room['telpa'] == '1' or room['telpa'] == 'Prakse - I'):
+                del room['telpa']
+            else:
+                dummy_rta_all_rooms.append(room['telpa'])
 
         for room_active in response_active_rooms["Saraksts"]:
-            dummy_rta_leacture_rooms.append(room_active['telpa'])
+            dummy_rta_lecture_rooms.append(room_active['telpa'])
 
-        for roomd_id in dummy_rta_all_rooms:
-            if dummy_rta_leacture_rooms.__contains__(roomd_id):
-                dummy_active_rooms_list.append(roomd_id + " active")
+        for room_id in dummy_rta_all_rooms:
+            building = room_id.split('-')
+            if dummy_rta_lecture_rooms.__contains__(room_id):
+                dummy_active_rooms_list.append(room_id + " active")
             else:
                 rta_not_active_output.append({
-                    "room_name": roomd_id,
-                    "status": "not active today"
+                    "room_name": room_id,
+                    "status": "not active today",
+                    'building': building[1]
                 })
 
         # return rta_active_output + rta_not_active_output
