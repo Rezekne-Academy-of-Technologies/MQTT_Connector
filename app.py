@@ -74,9 +74,9 @@ def RoomData():
                     'building': building[1]
                 })
 
-        # return rta_active_output + rta_not_active_output
+        #return rta_active_output + rta_not_active_output
 
-        # Connection to MQTT broker
+        #Connection to MQTT broker
 
         def on_log(client, userdata, buf):  # Call back function
             print('log: ' + buf)
@@ -121,4 +121,4 @@ def RoomData():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, host='0.0.0.0',port=8000)
