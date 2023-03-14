@@ -21,7 +21,7 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # tells Docker that a container listens for traffic on the specified port in order to view our project in a browser.
-EXPOSE 8000
+EXPOSE 8888
 
 # CMD is the command the container executes by default when you launch the built image.
 CMD ["python", "app.py"]
