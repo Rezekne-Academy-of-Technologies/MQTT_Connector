@@ -37,22 +37,26 @@ def RoomData():
         response_active_rooms = json.loads(active_rooms)
 
         for room_active in response_active_rooms["Saraksts"]:
-            building = room_active['telpa'].split('-')
-            if room_active['sakuma_laiks'] <= current_time and room_active['beigu_laiks'] >= current_time:
-                rta_active_output.append({
-                    "room_name": room_active['telpa'],
-                    "date": room_active['datums_p'],
-                    "status": "active",
-                    "building": building[1]
-                })
+            if (room_active['telpa'] == '1'):
+                del room_active
             else:
-                rta_active_output.append({
-                    "room_name": room_active['telpa'],
-                    "date": room_active['datums_p'],
-                    "status": "currently isn't active ",
-                    "building": building[1]
+                buildings = room_active['telpa'].split('-')
+                if room_active['sakuma_laiks'] <= current_time and room_active['beigu_laiks'] >= current_time:
+                    rta_active_output.append({
+                        "room_name": room_active['telpa'],
+                        "date": room_active['datums_p'],
+                        "status": "active",
+                        "building": buildings[1]
 
-                })
+                    })
+                else:
+                    rta_active_output.append({
+                        "room_name": room_active['telpa'],
+                        "date": room_active['datums_p'],
+                        "status": "currently isn't active ",
+                        "building": buildings[1]
+
+                    })
 
         for room in response_rooms_info["Saraksts"]:
             if (room['telpa'].__contains__('test') or room['telpa'] == '1' or room['telpa'] == 'Prakse - I'):
@@ -71,24 +75,23 @@ def RoomData():
                 rta_not_active_output.append({
                     "room_name": room_id,
                     "status": "not active today",
-                    'building': building[1]
+                    "building": building[1]
+
                 })
 
         #return rta_active_output + rta_not_active_output
 
-        #Connection to MQTT broker
-
         def on_log(client, userdata, buf):  # Call back function
-            print('log: ' + buf)
+         print('log: ' + buf)
 
         def on_connect(client, userdata, flags, rc):  # Call back function
-            if rc == 0:
-                print('Connected successfully')
-            else:
-                print('Bad connection. Code: ' + str(rc))
+         if rc == 0:
+            print('Connected successfully')
+         else:
+            print('Bad connection. Code: ' + str(rc))
 
         def on_disconnect(client, userdata, flags, rc=0):  # Call back function
-            print('Disconnected result code ' + str(rc))
+         print('Disconnected result code ' + str(rc))
 
         broker = "192.168.69.2"
         client = mqtt.Client("python01")  # Creating a client that sends/publishes messages/data
@@ -117,7 +120,7 @@ def RoomData():
             else:
                 print(" Error code for rta_active_rooms_response " + str(rta_active_rooms_response.status_code))
 
-    return "Everything's been sent to MQTT: => 192.168.69.2"
+    return "Everything's been sent to MQTT: => 192.168.69.2:1883"
 
 
 if __name__ == "__main__":
