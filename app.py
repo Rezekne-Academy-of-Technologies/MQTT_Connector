@@ -4,8 +4,9 @@ import json
 import paho.mqtt.client as mqtt
 import time
 from datetime import datetime
+from flask import render_template
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates', static_folder='static')
 
 
 @app.route('/')
@@ -80,7 +81,6 @@ def RoomData():
                 })
 
         #return rta_active_output + rta_not_active_output
-
         def on_log(client, userdata, buf):  # Call back function
          print('log: ' + buf)
 
@@ -120,8 +120,8 @@ def RoomData():
             else:
                 print(" Error code for rta_active_rooms_response " + str(rta_active_rooms_response.status_code))
 
-    return "Everything's been sent to MQTT: => 192.168.69.2:1883"
+    return render_template('page.html')
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0',port=8888)
+    app.run(debug=True, host='0.0.0.0',port=8887)

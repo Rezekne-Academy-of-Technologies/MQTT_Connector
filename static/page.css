@@ -1,0 +1,42 @@
+:root{
+    --background:#1e1e1e;
+    --color:rgb(253, 167, 3);
+}
+
+*,*::after,*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--background);
+    display: grid;
+    grid-auto-columns: 1fr 1fr ;
+    grid-auto-rows: 100px auto 50px;
+    font-family: "Inconsolata", monospace;
+}
+main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+section{
+    width: 50%;
+    height: 100%;
+}
+
+header{
+    width: 100%;
+    height: 100%;
+    display: flex;
+   justify-content: center;
+    align-items: center;
+    color: var(--color);
+    font-size: 25px;
+}
+.left-section{
+    padding: 0 30px;
+}
+
