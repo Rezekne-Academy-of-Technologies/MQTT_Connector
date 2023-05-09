@@ -3,25 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../static/page.css" />
+    <script src="https://kit.fontawesome.com/68eefef65f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11/dist/gsap.min.js"></script>
     <title>MQTTX Connector</title>
 </head>
 <html>
-<body>
+<body class="main">
 
-   <header>
-     <h1>MQTTX CONNECTOR</h1>
-   </header>
+ <header>
+     <div class="left-header-content">
+          <div class="rta-icon"></div>
+          <div class="txt">MQTTX - CONNECTOR</div>
+     </div>
+     <div class="right-header-content">
+         <!--<div class="header-txt-arrow">
+             <i class="icon-header-arrow fa-sharp fa-solid fa-arrow-right"></i>
+         </div>
+         <div class="header-txt">The data <span>already</span> has been sent to MQTTX</div>-->
+     </div>
 
-   <main>
-     <section class="left-section">
+ </header>
+ <main>
+     <section class="upper-content">
+         <div class="wrapper">
+                 <h1>RTA ROOM MONITORING -
+              WEB SERVICE</h1>
+             <div class="circle">
+                <i class="icon-arrow fa-sharp fa-solid fa-arrow-right"></i>
+             </div>
+              <div class="left-content"></div>
+         </div>
+         <div class="content flex">
+         <div class="mid-content">
+             <div class="mid-upper">
+                 <span class="dot-first"></span>
+                 <span class="dot-second"></span>
+                 <i class="arrow fa-sharp fa-solid fa-arrow-right"></i>
+             </div>
+             <div class="mid-middle">
+                 <h1 class="h1-visible">SET THE CONNECTION TO MQTT X</h1>
+             </div>
+             <div class="mid-bottom">
+             </div>
+         </div>
+         <div class="right-content" onclick="githubLink()">
+             <i class="github-icon fa-brands fa-github"></i>
+             <h2 class="github-text">GET THE CODE IN GITHUB</h2>
+         </div>
+         </div>
      </section>
-     <section class="right-section">
+
+     <section class="bottom-content">
+         <div class="left-bottom-content">
+             <div class="top-content">
+                 <h1>Runtime</h1>
+             </div>
+              <div class="bottom-content-of-box">
+                  <div class="box-content-left">
+                      <h1>For automating repetitive tasks, "Crontab" was Nr.1 choice to go. It allows users to schedule commands or scripts to run automatically at a specified time and frequency.</h1>
+                  </div>
+                  <div class="box-content-right">
+                      <div class="text">Every</div>
+                      <p>2min</p>
+                  </div>
+              </div>
+         </div>
+         <div class="mid-bottom-content">
+             <div class="mid-bottom-content-top">
+             <h1>Topic to subscribe</h1>
+             </div>
+             <div class="mid-bottom-content-bottom">
+             <p>RTA/rooms/#</p>
+             </div>
+         </div>
+         <div class="right-bottom-content">
+                 <h1> <span class="sample-text">Sample</span><span class="json-text">of JSON</span></h1>
+         </div>
      </section>
-   </main>
+ </main>
 
-   <footer>
+ <div class="modal hidden">
+     <div class="row-top">
+         <h1 class="modal-text">Snippet of JSON</h1>
+         <i class="close-modal fa-solid fa-xmark"></i>
+     </div>
+     <div class="row-bottom">
+         <div class="bg"></div>
+         <div class="modal-bottom-text">
+             <h1>RTA ROOM MONITORING</h1>
+         </div>
+     </div>
+ </div>
 
-   </footer>
+ <div class="overlay hidden"></div>
+
 
 </body>
+<script src="../static/page.js"></script>
 </html>

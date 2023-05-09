@@ -81,9 +81,6 @@ def RoomData():
                 })
 
         #return rta_active_output + rta_not_active_output
-        def on_log(client, userdata, buf):  # Call back function
-         print('log: ' + buf)
-
         def on_connect(client, userdata, flags, rc):  # Call back function
          if rc == 0:
             print('Connected successfully')
@@ -97,8 +94,7 @@ def RoomData():
         client = mqtt.Client("python01")  # Creating a client that sends/publishes messages/data
 
         client.on_connect = on_connect  # Bind call back functions (line 61-63)
-        client.on_disconnect = on_disconnect
-        client.on_log = on_log
+        client.on_disconnect = on_disconnect #??
 
         print("Connecting to broker", broker)
 
